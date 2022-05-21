@@ -11,6 +11,12 @@ public class PlayerController : MonoBehaviour
     Vector2 moveDirection;
     Vector2 mousePosition;
 
+    private GameManager gameManagerScript;
+
+    private void Start() 
+    {
+        gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManager>();    
+    }
     // Update is called once per frame
     void Update()
     {
@@ -33,5 +39,11 @@ public class PlayerController : MonoBehaviour
         Vector2 aimDirection = mousePosition - rb.position;
         float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
         rb.rotation = aimAngle;
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        Destroy(gameObject);
+        gameManagerScript.IsGameOver = true;    
     }
 }

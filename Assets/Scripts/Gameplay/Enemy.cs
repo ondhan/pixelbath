@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using System;
 
 public class Enemy : MonoBehaviour
 {
@@ -9,8 +11,11 @@ public class Enemy : MonoBehaviour
     Transform target;
     public Rigidbody2D rb;
 
+    private GameManager gameManagerScript;
+
     void Start()
     {
+        gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManager>();
         target = GameObject.Find("Player").transform;
     }
 
@@ -34,6 +39,7 @@ public class Enemy : MonoBehaviour
     {
 		if (collision.gameObject.tag == "Bullet") 
         {
+            gameManagerScript.scoreCount += 1;
 			Destroy(gameObject);
 		}
 	}

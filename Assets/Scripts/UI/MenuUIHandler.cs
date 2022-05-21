@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -9,16 +11,18 @@ using UnityEditor;
 
 public class MenuUIHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public static string playerName;
+
+    // Update is called once per frame
     void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ReadStringInput(string s)
     {
-        
+        playerName = s;
+        Debug.Log(playerName);
     }
 
     public void StartGame()
