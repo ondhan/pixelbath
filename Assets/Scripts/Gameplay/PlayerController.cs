@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         Destroy(gameObject);
-        gameManagerScript.IsGameOver = true;    
+        gameManagerScript.IsGameOver = true;
+        GameManager.IsGameFinished = true;    
     }
 }

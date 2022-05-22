@@ -13,6 +13,8 @@ public class MenuUIHandler : MonoBehaviour
 {
     public static string playerName;
 
+    public Text nameInput;
+
     // Update is called once per frame
     void Start()
     {
@@ -23,6 +25,16 @@ public class MenuUIHandler : MonoBehaviour
     {
         playerName = s;
         Debug.Log(playerName);
+    }
+
+    public void SetPlayerName()
+    {
+        playerName = nameInput.GetComponentInChildren<TMP_InputField>().text;
+    }
+
+    public string GetPlayerName()
+    {
+        return playerName;
     }
 
     public void StartGame()
