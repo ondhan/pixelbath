@@ -12,14 +12,7 @@ using UnityEditor;
 public class MenuUIHandler : MonoBehaviour
 {
     public static string playerName;
-
-    public Text nameInput;
-
-    // Update is called once per frame
-    void Start()
-    {
-        
-    }
+    public TMP_InputField nameInput;
 
     public void ReadStringInput(string s)
     {
@@ -27,19 +20,16 @@ public class MenuUIHandler : MonoBehaviour
         Debug.Log(playerName);
     }
 
-    public void SetPlayerName()
-    {
-        playerName = nameInput.GetComponentInChildren<TMP_InputField>().text;
-    }
-
-    public string GetPlayerName()
-    {
-        return playerName;
-    }
-
     public void StartGame()
     {
-        SceneManager.LoadScene(1);
+        if (playerName == null || playerName == "" || playerName == " ")
+        {
+
+        }
+        else
+        {
+            SceneManager.LoadScene(1);
+        }
     }
 
     public void ExitGame()
