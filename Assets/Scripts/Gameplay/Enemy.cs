@@ -30,14 +30,16 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    // applies movement
     private void FixedUpdate()
     {
         rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
     }
 
+    // when hit by projectile, dies
     void OnCollisionEnter2D(Collision2D collision)
     {
-		if (collision.gameObject.tag == "Bullet") 
+		if (collision.gameObject.tag == "Projectile") 
         {
             gameManagerScript.scoreCount += 1;
 			Destroy(gameObject);

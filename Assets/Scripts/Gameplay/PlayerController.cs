@@ -6,12 +6,15 @@ public class PlayerController : MonoBehaviour
 {
     public float moveSpeed;
     public Rigidbody2D rb;
-    public Weapon weapon;
 
     Vector2 moveDirection;
     Vector2 mousePosition;
 
     private GameManager gameManagerScript;
+
+    [Header("Level boundary")]
+    public float xRange = 30f;
+    public float yRange = 20f;
 
     private void Start() 
     {
@@ -20,16 +23,32 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // get movement input
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            weapon.Fire();
-        }
-
+        // determine move direction
         moveDirection = new Vector2(moveX, moveY).normalized;
+
+        // determine mouse position
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        if (transform.position.x < -xRange)
+        {
+            
+        }
+        if (transform.position.x > xRange)
+        {
+            
+        }
+        if (transform.position.y < -yRange)
+        {
+            
+        }
+        if (transform.position.y > yRange)
+        {
+            
+        }
     }
 
     private void FixedUpdate()
@@ -41,10 +60,13 @@ public class PlayerController : MonoBehaviour
         rb.rotation = aimAngle;
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnCollisionEnter2D(Collision2D col)
     {
-        Destroy(gameObject);
-        gameManagerScript.IsGameOver = true;
-        GameManager.IsGameFinished = true;    
+        if (col.gameObject.tag == "Enemy") 
+        {
+            Destroy(gameObject);
+            gameManagerScript.IsGameOver = true;
+            GameManager.IsGameFinished = true;  
+		}
     }
 }
