@@ -9,18 +9,32 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance {get; private set;}
+
+    [Header("Enemies")]
     public GameObject enemyPrefab;
-    private float spawnRangeX = 13;
-    private float spawnPosY = 7;
+
+    [Header("Spawn zones")]
+    private float spawnRangeX = 35f;
+    private float spawnRangeY = 25f;
     private float startDelay = 2;
     private float spawnInterval = 4f;
-    private Enemy enemyScript;
+    public bool rightSpawn;
+    public bool leftSpawn;
+    public bool upperSpawn;
+    public bool lowerSpawn;
+
+    [Header("Game over")]
     public bool IsGameOver;
     public GameObject GameOverText;
     public static bool IsGameFinished;
+
+    [Header("Score")]
     public Text currentScoreCounter;
     public int scoreCount = 0;
     public Text bestScoreCounter;
+
+    [Header("Scripts")]
+    private Enemy enemyScript;
     private DataManager dataManagerScript;
     
     // Start is called before the first frame update
@@ -39,7 +53,14 @@ public class GameManager : MonoBehaviour
     {
         IsGameOver = false;
         IsGameFinished = false;
+
         scoreCount = 0;
+
+        rightSpawn = false;
+        leftSpawn = false;
+        upperSpawn = false;
+        lowerSpawn = false;
+
         InvokeRepeating("SpawnEnemy", startDelay, spawnInterval);
         dataManagerScript = GameObject.Find("DataManager").GetComponent<DataManager>();
     }
@@ -58,10 +79,34 @@ public class GameManager : MonoBehaviour
     void SpawnEnemy()
     {
         // spawn random enemy at random position
-        Vector2 spawnpos = new Vector2(Random.Range(-spawnRangeX,spawnRangeX),
-        spawnPosY);
-        Instantiate(enemyPrefab, new Vector3(Random.Range(-spawnRangeX,spawnRangeX), spawnPosY),
-        enemyPrefab.transform.rotation);
+        if (rightSpawn) // right border
+        {
+            Vector2 spawnpos1 = new Vector2(spawnRangeX, Random.Range(-spawnRangeY, spawnRangeY));
+
+            Instantiate(enemyPrefab, new Vector3(spawnpos1.x, Random.Range(-spawnpos1.y, spawnpos1.y)),
+            enemyPrefab.transform.rotation);
+        }
+        if (leftSpawn) // left border
+        {
+            Vector2 spawnpos2 = new Vector2(-spawnRangeX, Random.Range(-spawnRangeY, spawnRangeY));
+
+            Instantiate(enemyPrefab, new Vector3(spawnpos2.x, Random.Range(-spawnpos2.y, spawnpos2.y)),
+            enemyPrefab.transform.rotation);
+        }
+        if (upperSpawn) // upper border
+        {
+            Vector2 spawnpos3 = new Vector2(Random.Range(-spawnRangeX,spawnRangeX), spawnRangeY);
+
+            Instantiate(enemyPrefab, new Vector3(Random.Range(-spawnpos3.x, spawnpos3.x), spawnpos3.y),
+            enemyPrefab.transform.rotation);
+        }
+        if (lowerSpawn) // lower border
+        {
+            Vector2 spawnpos4 = new Vector2(Random.Range(-spawnRangeX,spawnRangeX),-spawnRangeY);
+
+            Instantiate(enemyPrefab, new Vector3(Random.Range(-spawnpos4.x, spawnpos4.x), spawnpos4.y),
+            enemyPrefab.transform.rotation);
+        }        
     }
 
     void CountScore()

@@ -26,22 +26,18 @@ public class Projectile : MonoBehaviour
     {
         if (transform.position.x < -xRange)
         {
-            Debug.Log("low x");
             Destroy(gameObject);
         }
         if (transform.position.x > xRange)
         {
-            Debug.Log("high x");
             Destroy(gameObject);
         }
         if (transform.position.y < -yRange)
         {
-            Debug.Log("low y");
             Destroy(gameObject);
         }
         if (transform.position.y > yRange)
         {
-            Debug.Log("high y");
             Destroy(gameObject);
         }   
     }

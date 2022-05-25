@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - Boundary
   - Projectile
+  - EnemyBlade
+  - EnemyProjectile
   layers:
   - Default
   - TransparentFX
