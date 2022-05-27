@@ -46,12 +46,12 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
         isPaused = false;
-        GameManager.IsGameFinished = true;
+        DataManager.IsGameFinished = true;
     }
 
     public void ExitGame()
     {
-        GameManager.IsGameFinished = true;
+        DataManager.IsGameFinished = true;
 #if UNITY_EDITOR
         EditorApplication.ExitPlaymode();
 #else

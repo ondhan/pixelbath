@@ -9,20 +9,13 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;
     Vector2 moveDirection;
     Vector2 mousePosition;
-    public GameObject activeWeapon;
-    public GameObject rangedWeapon1;
-    public GameObject rangedWeapon2;
-    public GameObject rangedWeapon3;
 
     [Header("Player controls")]
     public KeyCode FireKey = KeyCode.Mouse0;
-    public KeyCode SwitchToWeapon1Key = KeyCode.Alpha1;
-    public KeyCode SwitchToWeapon2Key = KeyCode.Alpha2;
-    public KeyCode SwitchToWeapon3Key = KeyCode.Alpha3;
 
     [Header("Scripts")]
     private GameManager gameManagerScript;
-    public RangedWeapon ranged;
+    public Weapon weapon;
 
     [Header("Level boundary")]
     public float xRange = 30f;
@@ -31,7 +24,6 @@ public class PlayerController : MonoBehaviour
     private void Start() 
     {
         gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManager>();
-        activeWeapon = rangedWeapon1;
     }
 
     // update is called once per frame
@@ -39,7 +31,6 @@ public class PlayerController : MonoBehaviour
     {
         Move();
         Shoot();
-        SwitchRangedWeapon();
     }
 
     private void FixedUpdate()
@@ -86,29 +77,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(FireKey))
         {
-            ranged.PlayerShot();
-        }
-    }
-
-    private void SwitchRangedWeapon()
-    {
-        if (Input.GetKeyDown(SwitchToWeapon1Key))
-        {
-            activeWeapon.SetActive(false);
-            activeWeapon = rangedWeapon1;
-            activeWeapon.SetActive(true);
-        }
-        if (Input.GetKeyDown(SwitchToWeapon2Key))
-        {
-            activeWeapon.SetActive(false);
-            activeWeapon = rangedWeapon2;
-            activeWeapon.SetActive(true);
-        }
-        if (Input.GetKeyDown(SwitchToWeapon3Key))
-        {
-            activeWeapon.SetActive(false);
-            activeWeapon = rangedWeapon3;
-            activeWeapon.SetActive(true);
+            weapon.PlayerShot();
         }
     }
 
@@ -117,8 +86,8 @@ public class PlayerController : MonoBehaviour
         if (col.gameObject.tag == "EnemyBlade") 
         {
             Destroy(gameObject);
-            gameManagerScript.IsGameOver = true;
-            GameManager.IsGameFinished = true;  
+            DataManager.IsGameOver = true;
+            DataManager.IsGameFinished = true;  
 		}
     }
 }

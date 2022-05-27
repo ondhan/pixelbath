@@ -8,12 +8,11 @@ using UnityEngine.SceneManagement;
 
 public class DataManager : MonoBehaviour
 {
-    public static int currentBestScore = 0;
-    public string playerName;
-    public static string currentBestPlayerName;
     public static DataManager Instance;
     private GameManager gameManagerScript;
     private MenuUIHandler menuUIHandlerScript;
+    public static bool IsGameFinished;
+    public static bool IsGameOver;
 
     private void Awake()
     {
@@ -35,20 +34,7 @@ public class DataManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerName = MenuUIHandler.playerName;
-
-        if (GameManager.IsGameFinished)
-        {
-            SaveBestScore();
-        }
+        
     }
 
-    public void SaveBestScore()
-    {
-        if (gameManagerScript.scoreCount > currentBestScore)
-        {
-            currentBestScore = gameManagerScript.scoreCount;
-            currentBestPlayerName = playerName;
-        }
-    }
 }

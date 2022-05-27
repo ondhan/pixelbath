@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RangedWeapon : MonoBehaviour
+public class Weapon : MonoBehaviour
 {
     [Header("Projectile")]
     public GameObject projectilePrefab; // projectile GameObject
@@ -24,15 +24,18 @@ public class RangedWeapon : MonoBehaviour
 
     [Header("Scripts")]
     private PlayerController playerControllerScript;
+    private GameManager gameManagerScript;
 
     public void Start()
     {
         playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
+        gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     public void Update()
     {
         PlayerShot();
+        ModifyWeapon();
     }
 
     public void PlayerShot()
@@ -96,5 +99,30 @@ public class RangedWeapon : MonoBehaviour
         Fire();
         yield return new WaitForSeconds(fireRate); // delay between them shots
         isShotReady = true; // enables ability to fire again
+    }
+
+    void ModifyWeapon()
+    {
+        if (gameManagerScript.difficultyLevel == 1)
+        {
+            isSingleShotFire = true;
+            fireForce = 20f;
+            fireCooldown = 1f;
+        }
+        if (gameManagerScript.difficultyLevel == 3)
+        {
+            isSingleShotFire = false;
+            isBurstFire = true;
+            fireRate = 0.1f;
+            burstAmount = 3;
+        }
+        if (gameManagerScript.difficultyLevel == 5)
+        {
+            isBurstFire = false;
+            isAutomaticFire = true;
+            fireCooldown = 0f;
+            fireRate = 0.1f;
+            burstAmount = 0;
+        }
     }
 }

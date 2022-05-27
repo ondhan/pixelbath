@@ -17,7 +17,6 @@ public class MenuUIHandler : MonoBehaviour
     public void ReadStringInput(string s)
     {
         playerName = s;
-        Debug.Log(playerName);
     }
 
     public void StartGame()
@@ -29,6 +28,8 @@ public class MenuUIHandler : MonoBehaviour
         else
         {
             SceneManager.LoadScene(1);
+            DataManager.IsGameFinished = false;
+            DataManager.IsGameOver = false;
         }
     }
 
